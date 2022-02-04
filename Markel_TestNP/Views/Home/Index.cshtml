@@ -1,0 +1,73 @@
+﻿@using Markel_TestNP.Controllers
+
+@model PageContent
+@{
+    Layout = Model.TemplateKey;
+    ViewData["Title"] = Model != null ? Model.Title : "Home page";
+}
+
+@if (Model != null && (!string.IsNullOrEmpty(Model.Body)))
+{
+    @Html.Raw(Model.Body)
+}
+else
+{
+    <!-- Default text -->
+    <div class="content">
+        <div class="content-inner">
+
+            <div class="col-xs-12">
+
+                <h2>Who are we?</h2>
+                <p>Markel direct are a&nbsp;specialist online insurer providing cover for contractors, consultants, self-employed professionals and freelancers, as well as small charities, local community groups and clubs and societies.</p>
+                <p>We are trusted by over 200,000 customers and have over 25 years experience of insuring a wide range of businesses, professions, social welfare and charitable organisations.</p>
+                <p><span>We're a division of Markel International, a Lloyd's and London market insurer that wrote gross premiums of £1.09bn ($1.49bn) in 2020, and we're regulated by the Financial Conduct Authority and Prudential Regulation Authority. You can view our details on the&nbsp;</span><a href="http://www.fsa.gov.uk/register/firmRegulator.do?sid=56481" target="_blank">Financial Services Register</a>.</p>
+                <br />
+                <a class="btn btn-primary" href="#">
+                    <span>Get a quote now</span>
+                    <i class="icon-caret-down"></i>
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+}
+<div class="row col-xs-12" id="productresult"></div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            var options = {};
+            options.url = "/api/ProductsApi";
+            options.contentType = "application/json";
+            options.type = "GET";
+            options.dataType = "json";
+            options.success = function (data) {
+                console.log(data);
+                data.forEach(function (element) {
+                    //alert(element);
+
+                   var text = '<div class="card col-xs-4" style="width: 22rem; padding:5px; margin:5px">';
+                   text +='<img class="card-img-top col-xs-12" src="' + element.imageUrl + '" alt="' + element.name + '">';
+                   text +=('<div class="card-body">');
+                   text +=('<h5 class="card-title">' + element.name + '</h5>');
+                    text +=('<p class="card-text">' + element.description + '</p>');
+                    text +='</div>'+'</div>';
+                    $("#productresult").append(text);
+                });
+            };
+            options.error = function () {
+                alert("Error while calling the Web API!");
+            };
+            $.ajax(options);
+        });
+    </script>
+}
+
+@section banner
+{
+    <img src=" @Model.ImageUrl" class="img-circle img-fluid img-responsive imgMax" />
+
+}

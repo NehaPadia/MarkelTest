@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Confirmation";
+    Layout = "_Intro";
+}
+
+@if (Model != null)
+{
+    @Html.Raw(Model.Body)
+}
+ 
+    <div class="row col-xs-12">
+        <div class="col-sm-4">
+            <img class="img-circle img-responsive img-fluid" src="/images/contactus_confirmation.jpg" alt="Contact Us Confirmation" />
+        </div>
+        <div class="col-sm-8">
+            Thank you for submitting form to contact us. We will be in touch soon.
+            <br />
+            Our clints are our top priority.
+        </div>
+    </div>
+

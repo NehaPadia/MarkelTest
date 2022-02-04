@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Markel_TestNP.Models.PageContent>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TemplateKey)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PageUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MenuText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Body)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                int length = 80;
+                string bodyText;
+                if (item.Body.Length > length)
+                {
+                    bodyText = item.Body.Substring(0, length);
+                    bodyText += "...";
+                }
+                else
+                {
+                    bodyText = item.Body;
+                }
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TemplateKey)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PageUrl)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MenuText)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => bodyText)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImageUrl)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PageId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.PageId">Details</a>
+                        @if(item.PageId != 1 && item.PageId != 2 && item.PageId != 3  )
+                        {
+                            <span>|</span>
+                            <a asp-action="Delete" asp-route-id="@item.PageId">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
